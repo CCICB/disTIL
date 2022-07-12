@@ -23,7 +23,7 @@ Clone this repository in order to locally modify and run CWL tools and workflows
 - **Consensus HLA typing** using [HLA-HD](https://www.genome.med.kyoto-u.ac.jp/HLA-HD/) v1.4.0
 - **Neoepitope prediction** using [pVACtools](https://github.com/griffithlab/pVACtools) v2.0.4
 - **Tumour mutational burden (TMB) calculation**
-- **Gene expression classification** using IPASS (unpublished) - note that this module is specific to the analysis of paediatric cancer
+- **Gene expression classification** using [IPASS](https://github.com/CCICB/IPASS) - note that this module is specific to the analysis of paediatric cancer
 - **Immune cell type deconvolution** using [EPIC](https://github.com/GfellerLab/EPIC) and [quanTIseq](https://github.com/icbi-lab/quanTIseq) via the [immunedeconv](https://github.com/icbi-lab/immunedeconv) R package
 
 To summarise the results of analysis in an interpretable format, *disTIL*'s reporting module generates an interactive HTML report using knitr and Rmarkdown. A sample HTML report is available in the `docker/distil_report` directory. The *disTIL* HLA typing module also outputs a PDF HLA report (sample available in the `docker/hla_report` directory).
@@ -62,13 +62,15 @@ This version requires all the same inputs as the full *disTIL* workflow above.
 ## *disTIL* module details
 ### Consensus HLA typing
 
+July 2022 update: we now provided a stand-alone utility called [consHLA](https://github.com/CCICB/consHLA) to perform consensus HLA typing. TODO: swap out the HLA typing in disTIL to use consHLA.
+
 The disTIL consensus HLA typing module uses HLA-HD to conduct HLA typing from two or three NGS samples for a given patient, producing two or three sets of candidate alleles. **There is no restriction on which samples are input to the module provided they are compatible with HLA-HD, meaning any combination of tumour and normal WGS, WES, and RNA-seq samples can be used.** *disTIL* then uses a consensus algorithm to determine consensus alleles from the two or three candidate allele sets produced by running HLA-HD on the input samples. To be deemed a consensus allele, an allele must be present across at least two candidate sets. Consensus alleles are reported to the highest possible level of accuracy (two or three fields). Note that the alleles within an allele pair for a given gene are unordered. If no consensus allele can be determined, the allele is recorded as 'No consensus'.
 
 We defined a subset of clinically significant HLA genes to be used in neoepitope prediction: HLA-A, -B, -C, -DRA, -DRB1, -DRB3, -DRB4, -DRB5, -DQA1, -DQB1, -DPA1 and -DPB1.
 
 #### Inputs
 
-Two or three sets of paired-end FASTQs for any combination of tumour/normal WGS/WES/RNA-seq
+Two or three sets of paired-end FASTQs for any combination of tumour/normal WGS/WES/RNA-seq.
 
 #### Outputs
 
@@ -128,7 +130,7 @@ To calculate the number of coding missense variants, the *disTIL* TMB module fil
 
 ### Gene expression classification
 
-The *disTIL* gene expression classification module uses the Immune Paediatric Signature Score (IPASS) (unpublished) to classify paediatric tumours as immune hot or cold based on the predicted level of CD8+ T cell infiltration. Tumours with an IPASS score between -0.15 and 0.45 are considered as having ‘intermediate’ phenotype (neither hot nor cold).
+The *disTIL* gene expression classification module uses the Immune Paediatric Signature Score [IPASS](https://github.com/CCICB/IPASS) to classify paediatric tumours as immune hot or cold based on the predicted level of CD8+ T cell infiltration. Tumours with an IPASS score between -0.15 and 0.45 are considered as having ‘intermediate’ phenotype (neither hot nor cold).
 
 #### Inputs
 
@@ -148,5 +150,16 @@ The *disTIL* cell type deconvolution module uses EPIC and quanTIseq to predict t
 
 #### Outputs
 
-- *EPIC Deconvolution Results:* a CSV file containing the cell fractions predicted by EPIC
-- *quanTIseq Deconvolution Results:* a CSV file containing the cell fractions predicted by quanTIseq
+- *EPIC Deconvolution Results*: a CSV file containing the cell fractions predicted by EPIC
+- *quanTIseq Deconvolution Results*: a CSV file containing the cell fractions predicted by quanTIseq
+
+# Acknowledgements
+* A/Prof Mark Cowley oversees the project
+* Rachel Bowen-James developed disTIL in 2021
+* Weilin (Alan) Wu worked on disTIL in 2022
+* Chelsea Mayoh provided helpful advice since 2021
+* Joe Paulson from Genentech provided helpful advice in 2021
+* Ana Rodriquez from Roche provided helpful discussions in 2021
+
+# Funding
+We would like to acknowledge Luminesce Alliance – Innovation for Children’s Health for its contribution and support. Luminesce Alliance, is a not-for-profit cooperative joint venture between the Sydney Children’s Hospitals Network, the Children’s Medical Research Institute, and the Children’s Cancer Institute. It has been established with the support of the NSW Government to coordinate and integrate paediatric research. Luminesce Alliance is also affiliated with the University of Sydney and the University of New South Wales Sydney.
