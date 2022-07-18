@@ -87,8 +87,12 @@ if (params$hla_json != 'NA') {
 pvacseq_cols <- c('Chromosome', 'Start', 'Stop', 'Reference', 'Variant', 'Variant.Type', 'Gene.Name', 'HLA.Allele', 'Peptide.Length', 'MT.Epitope.Seq', 'Best.MT.Score', 'Corresponding.WT.Score','Corresponding.Fold.Change', 'Best.MT.Percentile', 'Corresponding.WT.Percentile', 'Tumor.DNA.Depth', 'Tumor.DNA.VAF', 'Tumor.RNA.Depth', 'Tumor.RNA.VAF', 'Normal.Depth', 'Normal.VAF', 'Gene.Expression', 'difficult_n_terminal_residue', 'c_terminal_cysteine', 'c_terminal_proline', 'cysteine_count')
 pvacseq_colnames <- c('Chromosome', 'Start', 'Stop', 'Reference', 'Variant', 'Variant Type', 'Gene Name', 'HLA Allele', 'Neoepitope Length', 'Neoepitope Sequence', 'Mutant IC50', 'Wildtype IC50',' Corresponding Fold Change (DAI)', 'Mutant Percentile', 'Wildtype Percentile', 'Tumour DNA Depth', 'Tumour DNA VAF', 'Tumour RNA Depth', 'Tumour RNA VAF', 'Normal Depth', 'Normal VAF', 'Gene Expression', 'Difficult N-terminal Residue?', 'C-terminal Cysteine?', 'C-terminal Proline?', 'Cysteine Count')
 
-pvacfuse_cols <- c('Chromosome', 'Start', 'Stop', 'Variant.Type', 'Gene.Name', 'HLA.Allele', 'Peptide.Length', 'MT.Epitope.Seq', 'Best.MT.Score', 'Best.MT.Percentile',  'X..Junction.reads', 'X..Spanning.fragments', 'difficult_n_terminal_residue', 'c_terminal_cysteine', 'c_terminal_proline', 'cysteine_count')
-pvacfuse_colnames <- c('Chromosome', 'Start', 'Stop', 'Variant Type', 'Gene Name', 'HLA Allele', 'Neoepitope Length', 'Neoepitope Sequence', 'Mutant IC50', 'Mutant Percentile','Junction Reads', 'Spanning Fragments', 'Difficult N-terminal Residue?', 'C-terminal Cysteine?', 'C-terminal Proline?', 'Cysteine Count')
+# pvacfuse_cols <- c('Chromosome', 'Start', 'Stop', 'Variant.Type', 'Gene.Name', 'HLA.Allele', 'Peptide.Length', 'MT.Epitope.Seq', 'Best.MT.Score', 'Best.MT.Percentile',  'X..Junction.reads', 'X..Spanning.fragments', 'difficult_n_terminal_residue', 'c_terminal_cysteine', 'c_terminal_proline', 'cysteine_count')
+# pvacfuse_colnames <- c('Chromosome', 'Start', 'Stop', 'Variant Type', 'Gene Name', 'HLA Allele', 'Neoepitope Length', 'Neoepitope Sequence', 'Mutant IC50', 'Mutant Percentile','Junction Reads', 'Spanning Fragments', 'Difficult N-terminal Residue?', 'C-terminal Cysteine?', 'C-terminal Proline?', 'Cysteine Count')
+
+pvacfuse_cols <- c('Chromosome', 'Start', 'Stop', 'Variant.Type', 'Gene.Name', 'HLA.Allele', 'Peptide.Length', 'MT.Epitope.Seq', 'Best.MT.Score', 'Best.MT.Percentile', 'difficult_n_terminal_residue', 'c_terminal_cysteine', 'c_terminal_proline', 'cysteine_count')
+pvacfuse_colnames <- c('Chromosome', 'Start', 'Stop', 'Variant Type', 'Gene Name', 'HLA Allele', 'Neoepitope Length', 'Neoepitope Sequence', 'Mutant IC50', 'Mutant Percentile', 'Difficult N-terminal Residue?', 'C-terminal Cysteine?', 'C-terminal Proline?', 'Cysteine Count')
+
 
 if (params$pvacseq_i != 'NA') {
   pvacseq_i <- read.delim(file = params$pvacseq_i, sep = "\t", header = T, stringsAsFactors = F)
@@ -217,11 +221,13 @@ vars <- ''
 tmb <- ''
 
 if (params$coding_missense_variants != 'NA') {
-  vars <- readLines(params$coding_missense_variants)
+  # vars <- readLines(params$coding_missense_variants)
+  vars <- params$coding_missense_variants
 }
 
 if (params$tmb != 'NA') {
-  tmb <- readLines(params$tmb)
+  # tmb <- readLines(params$tmb)
+  tmb <- params$tmb
 }
 
 ```
