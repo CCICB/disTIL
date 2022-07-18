@@ -259,7 +259,4 @@ arguments:
   valueFrom: |-
     && cp pvacfuse_$(inputs.sample_name)/MHC_Class_II/$(inputs.sample_name).filtered.tsv $(inputs.sample_name)_pvacfuse_ii.filtered.tsv
   shellQuote: false
-
-hints:
-  value: c5.4xlarge;ebs-gp2;1024
 id: mwonge/ccicb-distil/pvacfuse/10

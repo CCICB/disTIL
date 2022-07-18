@@ -15,7 +15,7 @@ doc: |-
   This tool uses the Docker image: `zlskidmore/agfusion:1.2`
 
   ## Documentation
-  - [agfusion](https://github.com/murphycj/AGFusion#basic-usage)
+  - [agfusion](https://github.com/murphycj/AGFusion)
   - [agfusion publication](https://www.biorxiv.org/content/10.1101/080903v1)
 
 requirements:
@@ -132,7 +132,4 @@ arguments:
   valueFrom: "${\n    return '&& tar -czvf agfusion-output.tar.gz agfusion-output';\n\
     }"
   shellQuote: false
-
-hints:
-  value: c4.2xlarge;ebs-gp2;1024
 id: mwonge/ccicb-distil/agfusion/10
